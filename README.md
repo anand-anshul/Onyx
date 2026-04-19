@@ -1,27 +1,114 @@
-![test_badge](https://github.com/anand-anshul/Onyx/actions/workflows/ci.yml/badge.svg)
+# 🚀 CI/CD Pipeline Demo with Notely
 
-# learn-cicd-starter (Notely)
+A demonstration of building a **complete CI/CD pipeline** for a Go web application using GitHub Actions, with **Notely** (a simple note-taking app) as the working example.
 
-This repo contains the starter code for the "Notely" application for the "Learn CICD" course on [Boot.dev](https://boot.dev).
+---
 
-## Local Development
+## 📌 About
 
-Make sure you're on Go version 1.22+.
+This project showcases how code moves from **development → testing → build → deployment** using automated workflows.
+Notely is included to demonstrate a real, deployable backend system.
 
-Create a `.env` file in the root of the project with the following contents:
+---
 
-```bash
-PORT="8080"
+## ✨ Features
+
+* ⚙️ **CI/CD Pipeline (GitHub Actions)**
+
+  * Automated testing & build (CI)
+  * Docker-based deployment workflow (CD)
+
+* 📝 **Notely App**
+
+  * User creation with API key auth
+  * Create & fetch notes
+  * REST API with middleware
+  * Embedded static frontend
+
+---
+
+## 🏗️ Architecture
+
+```plaintext
+Client → Go Server (chi)
+            |
+     -------------------
+     |                 |
+ Static           REST API (/v1)
+                     |
+                Auth Middleware
+                     |
+                  Handlers
+                     |
+                 Database (sqlc)
 ```
 
-Run the server:
+---
+
+## 🛠️ Tech Stack
+
+* Go (1.22+), chi
+* PostgreSQL (optional)
+* sqlc
+* Docker
+* GitHub Actions
+
+---
+
+## 🚀 Run Locally
 
 ```bash
-go build -o notely && ./notely
+go build -o notely
+./notely
 ```
 
-*This starts the server in non-database mode.* It will serve a simple webpage at `http://localhost:8080`.
+Visit: [http://localhost:8080](http://localhost:8080)
 
-You do *not* need to set up a database or any interactivity on the webpage yet. Instructions for that will come later in the course!
+---
 
-Anshul's version of Boot.dev's Notely app.
+## 🔐 Example API
+
+```http
+POST /v1/users
+```
+
+```http
+Authorization: ApiKey <token>
+```
+
+```http
+POST /v1/notes
+GET  /v1/notes
+```
+
+---
+
+## ⚙️ CI/CD Workflow
+
+* **CI (`ci.yml`)**
+
+  * Runs tests & build on PRs/push
+
+* **CD (`cd.yml`)**
+
+  * Builds Docker image on merge to main
+  * Ready for deployment (extensible)
+
+---
+
+## 📂 Structure
+
+```
+main.go
+handlers/
+internal/
+static/
+Dockerfile
+.github/workflows/
+```
+
+---
+
+## 🧾 Summary
+
+A minimal Go web app used to demonstrate **real-world CI/CD practices**, including automation, containerization, and clean backend design.
